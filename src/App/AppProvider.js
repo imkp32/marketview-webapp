@@ -3,7 +3,7 @@ import axios from 'axios'
 import _ from 'lodash'
 
 
-const fundURL ="http://localhost:43716/api/dataservice/mutualfunddata";
+const fundURL ="http://34.72.110.173/api/dataservice/mutualfunddata";
 
 
 const MAX_FAVORITES =1;
@@ -31,14 +31,14 @@ export class AppProvider extends Component{
             {headerName:'FEB', field:'stats.1 Day Returns',sortable:true,filter:true,minWidth:50,maxWidth:100},
             {headerName:'MAR', field:'stats.1 Month Returns',sortable:true,filter:true,minWidth:50,maxWidth:100},
             {headerName:'APR', field:'stats.1 Quarter Returns',sortable:true,filter:true,minWidth:50,maxWidth:100},
-            {headerName:'MAY', field:'stats.MTD',sortable:true,filter:true,minWidth:50,maxWidth:100},
-            {headerName:'JUN', field:'stats.YTD',sortable:true,filter:true,minWidth:50,maxWidth:100},
-            {headerName:'JUL', field:'stats.LWR',sortable:true,filter:true,minWidth:50,maxWidth:100},
-            {headerName:'AUG', field:'stats.LMR',sortable:true,filter:true,minWidth:50,maxWidth:100},
-            {headerName:'SEP', field:'stats.LYR',sortable:true,filter:true,minWidth:50,maxWidth:100},
-            {headerName:'OCT', field:'stats.LQR',sortable:true,filter:true,minWidth:50,maxWidth:100},
-            {headerName:'NOV', field:'stats.LQR',sortable:true,filter:true,minWidth:50,maxWidth:100},
-            {headerName:'DEC', field:'stats.LQR',sortable:true,filter:true,minWidth:50,maxWidth:100},
+            {headerName:'MAY', field:'stats.MonthToDate',sortable:true,filter:true,minWidth:50,maxWidth:100},
+            {headerName:'JUN', field:'stats.YearToDate',sortable:true,filter:true,minWidth:50,maxWidth:100},
+            {headerName:'JUL', field:'stats.LastWeekReturns',sortable:true,filter:true,minWidth:50,maxWidth:100},
+            {headerName:'AUG', field:'stats.LastMonthReturns',sortable:true,filter:true,minWidth:50,maxWidth:100},
+            {headerName:'SEP', field:'stats.LastYearReturns',sortable:true,filter:true,minWidth:50,maxWidth:100},
+            {headerName:'OCT', field:'stats.LastQuarterReturns',sortable:true,filter:true,minWidth:50,maxWidth:100},
+            {headerName:'NOV', field:'stats.LastQuarterReturns',sortable:true,filter:true,minWidth:50,maxWidth:100},
+            {headerName:'DEC', field:'stats.LastQuarterReturns',sortable:true,filter:true,minWidth:50,maxWidth:100},
           ],
           rowData:null,
           navArr:[],
@@ -68,7 +68,7 @@ export class AppProvider extends Component{
       })
   }
   fetchAnnualStats = async() =>{
-    const AnnualURL = "http://localhost:43716/api/calculationservice?FundId="+this.state.uniqueId+"&StatName=AnnualReturns";
+    const AnnualURL = "http://34.72.110.173/api/calculationservice?FundId="+this.state.uniqueId+"&StatName=AnnualReturns";
     await axios.get(AnnualURL).then((response)=>{
       let annualList = response.data;
       this.setState({annualList});
@@ -77,7 +77,7 @@ export class AppProvider extends Component{
   }
 
   fetchMonthlyStats = async() =>{
-    const MonthlyURL = "http://localhost:43716/api/calculationservice?FundId="+this.state.uniqueId+"&StatName=LastThreeMonthsReturns";
+    const MonthlyURL = "http://34.72.110.173/api/calculationservice?FundId="+this.state.uniqueId+"&StatName=LastThreeMonthsReturns";
     let returnArray=[];
     let monthArray=[];
     await axios.get(MonthlyURL).then((response)=>{
@@ -94,7 +94,7 @@ export class AppProvider extends Component{
   }
 
   fetchHistStats = async() =>{
-    const HistURL = "http://localhost:43716/api/calculationservice?FundId="+this.state.uniqueId+"&StatName=HistCumReturns";
+    const HistURL = "http://34.72.110.173/api/calculationservice?FundId="+this.state.uniqueId+"&StatName=HistoricalCumulativeReturns";
     let historicalArray = [];
     let dateArray=[];
       await axios.get(HistURL).then((response)=>{
@@ -103,8 +103,8 @@ export class AppProvider extends Component{
           //console.log(historicalList);
 
           for(var i=0;i<historicalList['timeSeriesList'].length;i++){
-            if((historicalList['timeSeriesList'][i].stats.HistCumReturns) != undefined && (historicalList['timeSeriesList'][i].stats.HistCumReturns) != null)
-              historicalArray.push(historicalList['timeSeriesList'][i].stats.HistCumReturns);
+            if((historicalList['timeSeriesList'][i].stats.HistoricalCumulativeReturns) != undefined && (historicalList['timeSeriesList'][i].stats.HistoricalCumulativeReturns) != null)
+              historicalArray.push(historicalList['timeSeriesList'][i].stats.HistoricalCumulativeReturns);
               dateArray.push((historicalList['timeSeriesList'][i].date));  
           }
           this.setState({historicalArray});
@@ -114,7 +114,7 @@ export class AppProvider extends Component{
   }
 
   fetchAllStats = async() =>{
-      const fullStatsURL = "http://localhost:43716/api/calculationservice?FundId="+this.state.uniqueId+"&StatName=1 Day Returns,1 Month Returns, 1 Week Returns,1 Quarter Returns, 1 Year Returns, WTD,MTD,YTD, QTD,LWR,LMR,LYR,LQR";
+      const fullStatsURL = "http://34.72.110.173/api/calculationservice?FundId="+this.state.uniqueId+"&StatName=1 Day Returns,1 Month Returns, 1 Week Returns,1 Quarter Returns, 1 Year Returns, WeekToDate,MonthToDate,YearToDate, QuarterToDate,LastWeekReturns,LastMonthReturns,LastYearReturns,LastQuarterReturns";
       
       let navArr=[];
       await axios.get(fullStatsURL).then((response)=>{
