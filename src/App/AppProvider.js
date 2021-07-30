@@ -3,7 +3,7 @@ import axios from 'axios'
 import _ from 'lodash'
 
 
-const fundURL ="http://35.193.1.247/api/dataservice/mutualfunddata";
+const fundURL ="http://52.191.88.26/api/dataservice/mutualfunddata";
 
 
 const MAX_FAVORITES =1;
@@ -68,7 +68,7 @@ export class AppProvider extends Component{
       })
   }
   fetchAnnualStats = async() =>{
-    const AnnualURL = "http://35.193.1.247/api/calculationservice?FundId="+this.state.uniqueId+"&StatName=AnnualReturns";
+    const AnnualURL = "http://52.191.88.26/api/calculationservice?FundId="+this.state.uniqueId+"&StatName=AnnualReturns";
     await axios.get(AnnualURL).then((response)=>{
       let annualList = response.data;
       this.setState({annualList});
@@ -77,7 +77,7 @@ export class AppProvider extends Component{
   }
 
   fetchMonthlyStats = async() =>{
-    const MonthlyURL = "http://35.193.1.247/api/calculationservice?FundId="+this.state.uniqueId+"&StatName=LastThreeMonthsReturns";
+    const MonthlyURL = "http://52.191.88.26/api/calculationservice?FundId="+this.state.uniqueId+"&StatName=LastThreeMonthsReturns";
     let returnArray=[];
     let monthArray=[];
     await axios.get(MonthlyURL).then((response)=>{
@@ -94,7 +94,7 @@ export class AppProvider extends Component{
   }
 
   fetchHistStats = async() =>{
-    const HistURL = "http://35.193.1.247/api/calculationservice?FundId="+this.state.uniqueId+"&StatName=HistoricalCumulativeReturns";
+    const HistURL = "http://52.191.88.26/api/calculationservice?FundId="+this.state.uniqueId+"&StatName=HistoricalCumulativeReturns";
     let historicalArray = [];
     let dateArray=[];
       await axios.get(HistURL).then((response)=>{
@@ -114,7 +114,7 @@ export class AppProvider extends Component{
   }
 
   fetchAllStats = async() =>{
-      const fullStatsURL = "http://35.193.1.247/api/calculationservice?FundId="+this.state.uniqueId+"&StatName=1 Day Returns,1 Month Returns, 1 Week Returns,1 Quarter Returns, 1 Year Returns, WeekToDate,MonthToDate,YearToDate, QuarterToDate,LastWeekReturns,LastMonthReturns,LastYearReturns,LastQuarterReturns";
+      const fullStatsURL = "http://52.191.88.26/api/calculationservice?FundId="+this.state.uniqueId+"&StatName=1 Day Returns,1 Month Returns, 1 Week Returns,1 Quarter Returns, 1 Year Returns, WeekToDate,MonthToDate,YearToDate, QuarterToDate,LastWeekReturns,LastMonthReturns,LastYearReturns,LastQuarterReturns";
       
       let navArr=[];
       await axios.get(fullStatsURL).then((response)=>{
